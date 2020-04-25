@@ -1,0 +1,1 @@
+This todo app is created as part of the [Netcraft academy full-stack course](https://netcraftacademgity.co.il/)
