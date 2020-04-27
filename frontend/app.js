@@ -57,8 +57,7 @@ document.querySelector('.list').addEventListener('dblclick', e => {
 					: '<i id="not-completed" class="far fa-circle"></i>';
 
 				// Adding input element to html
-				li.innerHTML = `${isDoneIcon} <input type="text" value="${todo.content}" > | <em>${todo.dateCreated}</em> <i id="remove-todo" class="fas fa-times">
-          `;
+				li.innerHTML = `${isDoneIcon} <input type="text" value="${todo.content}" > | <em>${todo.dateCreated}</em> <i id="remove-todo" class="fas fa-times">`;
 				const input = li.querySelector('input');
 				input.focus();
 
