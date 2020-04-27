@@ -28,14 +28,12 @@ function addTodo(todo, callback = noop) {
 			return;
 		}
 		const newTodo = { ...todo };
-		const newTodos = [
-			...todos
-		];
 		newTodo.id = todos[todos.length - 1].id + 1;
-		if (!newTodo.date) newTodo.date = new Date().toDateString();
-		newTodos.push(newTodo);
+		if (!newTodo.dateCreated) newTodo.dateCreated = new Date();
 
-		saveTodos(newTodos, err => {
+		todos.push(newTodo);
+
+		saveTodos(todos, err => {
 			if (err) {
 				callback(err);
 				return;
@@ -59,38 +57,34 @@ function removeTodo(id, callback = noop) {
 }
 
 // edit todo
-function editTodo(id, content, isDone) {
+function editTodo(id, todo, callback) {
 	getAllTodos((err, todos) => {
 		if (err) {
-			throw err;
+			callback(err);
+			return;
 		}
 
-		const newTodos = todos.map(todo => {
-			if (todo.id === id) {
-				todo.content = content;
-				todo.isDone = isDone;
+		const todoToEdit = todos.find(todo => todo.id === id);
+
+		if (!todoToEdit) {
+			callback(new Error('There is no todo with ID: ' + id));
+			return;
+		}
+
+		Object.assign(todoToEdit, todo);
+
+		saveTodos(todos, err => {
+			if (err) {
+				callback(err);
+				return;
 			}
-			return todo;
+			callback(null, todoToEdit);
 		});
-		saveTodos(newTodos, noop);
 	});
 }
 
-function toggleIsDone(id) {
-	getAllTodos((err, todos) => {
-		if (err) {
-			throw err;
-		}
-
-		const newTodos = todos.map(todo => {
-			if (todo.id === id) {
-				todo.isDone = !todo.isDone;
-			}
-			return todo;
-		});
-
-		saveTodos(newTodos, noop);
-	});
+function toggleIsDone(id, isDone, callback) {
+	editTodo(id, { isDone }, callback);
 }
 
 function showFilteredTodos(isDoneStatus) {
@@ -105,7 +99,7 @@ function showFilteredTodos(isDoneStatus) {
 			}
 		});
 
-		console.log(newTodos);
+		return newTodos;
 	});
 }
 
@@ -120,5 +114,6 @@ module.exports = {
 	addTodo,
 	removeTodo,
 	toggleIsDone,
-	showFilteredTodos
+	showFilteredTodos,
+	editTodo
 };

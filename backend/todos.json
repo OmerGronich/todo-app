@@ -4,55 +4,55 @@
 		"content": "add ability to see todos",
 		"isDone": true,
 		"id": 1,
-		"date": "Sat Apr 25 2020"
+		"dateCreated": "2020-04-25T19:05:13.897Z"
 	},
 	{
 		"title": "Add todo",
 		"content": "add ability to add todo",
 		"isDone": true,
 		"id": 2,
-		"date": "Sat Apr 25 2020"
+		"dateCreated": "2020-04-25T19:05:13.897Z"
 	},
 	{
 		"title": "Remove todo",
 		"content": "add ability to remove todo",
 		"isDone": true,
 		"id": 3,
-		"date": "Sat Apr 25 2020"
+		"dateCreated": "2020-04-25T19:05:13.897Z"
 	},
 	{
 		"title": "Edit todo",
 		"content": "add ability to edit todo",
 		"isDone": true,
 		"id": 4,
-		"date": "Sat Apr 25 2020"
+		"dateCreated": "2020-04-25T19:05:13.897Z"
 	},
 	{
 		"title": "Mark as done",
 		"content": "add ability to mark todo as done",
 		"isDone": true,
 		"id": 5,
-		"date": "Sat Apr 25 2020"
+		"dateCreated": "2020-04-25T19:05:13.897Z"
 	},
 	{
 		"title": "Filter Todos",
 		"content": "add ability to show only done / undone todos",
 		"isDone": true,
 		"id": 6,
-		"date": "Sat Apr 25 2020"
+		"dateCreated": "2020-04-25T19:05:13.897Z"
 	},
 	{
 		"title": "Todo without callback",
 		"content": "add todo without callback",
 		"isDone": true,
 		"id": 7,
-		"date": "Sat Apr 25 2020"
+		"dateCreated": "2020-04-25T19:05:13.897Z"
 	},
 	{
 		"title": "Todo ID",
 		"content": "grant todo id for each item",
 		"isDone": true,
 		"id": 8,
-		"date": "Sat Apr 25 2020"
+		"dateCreated": "2020-04-25T19:05:13.897Z"
 	}
 ]
