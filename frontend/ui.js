@@ -19,8 +19,7 @@ class UI {
 					? '<i id="completed" class="far fa-check-circle"></i>'
 					: '<i id="not-completed" class="far fa-circle"></i>';
 
-				todoLiElement.innerHTML = `${isDoneIcon} ${todo.content} | <em>${todo.dateCreated}</em> <i id="remove-todo" class="fas fa-times">
-          `;
+				todoLiElement.innerHTML = `${isDoneIcon} ${todo.content} | <em>${todo.dateCreated}</em> <i id="remove-todo" class="fas fa-times">`;
 
 				list.append(todoLiElement);
 				toggleAllBtn.style.display = 'inline-block';

@@ -66,8 +66,7 @@ document.querySelector('.list').addEventListener('dblclick', e => {
 				input.addEventListener('keydown', e => {
 					if (e.keyCode === 13) {
 						li.innerHTML = `${isDoneIcon} ${e.target
-							.value} | <em>${todo.dateCreated}</em> <i id="remove-todo" class="fas fa-times">
-          `;
+							.value} | <em>${todo.dateCreated}</em> <i id="remove-todo" class="fas fa-times">`;
 						todosManager.editTodo(todo.id, e.target.value);
 						input.blur();
 					}
@@ -76,8 +75,7 @@ document.querySelector('.list').addEventListener('dblclick', e => {
 				// Checking for exiting the focused state
 				input.addEventListener('blur', e => {
 					li.innerHTML = `${isDoneIcon} ${e.target
-						.value} | <em>${todo.dateCreated}</em> <i id="remove-todo" class="fas fa-times">
-        `;
+						.value} | <em>${todo.dateCreated}</em> <i id="remove-todo" class="fas fa-times">`;
 					todosManager.editTodo(todo.id, e.target.value);
 				});
 			}
