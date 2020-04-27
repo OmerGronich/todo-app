@@ -12,7 +12,7 @@ class Store {
 	static addTodo(todo) {
 		const todos = Store.getTodos();
 		todos.push(todo);
-		localStorage.setItem('todoList', JSON.stringify(todos));
+		Store.saveTodos(todos);
 	}
 
 	static saveTodos(todos) {

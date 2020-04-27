@@ -7,7 +7,7 @@ const todosManager = new TodosManager();
 // Event Listeners
 
 // Initializing app
-document.addEventListener('DOMContentLoaded', UI.renderTodoList());
+document.addEventListener('DOMContentLoaded', UI.renderTodoList);
 
 // Submit todo event
 addTodoInput.addEventListener('keydown', e => {
