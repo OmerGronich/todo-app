@@ -1,7 +1,7 @@
 {
-  "name": "todo-app",
+  "name": "todo-db",
   "version": "1.0.0",
-  "description": "This todo app is created as part of the [Netcraft academy full-stack course](https://netcraftacademgity.co.il/)",
+  "description": "",
   "main": "db.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -9,16 +9,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/OmerGronich/todo-app.git"
+    "url": "git+https://github.com/d-stuff/todo-db.git"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/OmerGronich/todo-app/issues"
+    "url": "https://github.com/d-stuff/todo-db/issues"
   },
-  "homepage": "https://github.com/OmerGronich/todo-app#readme",
+  "homepage": "https://github.com/d-stuff/todo-db#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1"
   }
 }

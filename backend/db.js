@@ -2,14 +2,12 @@ const { readFile, writeFile } = require('fs');
 
 const filePath = './todos.json';
 
-// See todos
-function getAllTodos(callback) {
+function getTodos(callback) {
 	readFile(filePath, (err, data) => {
 		if (err) {
 			callback(err);
 			return;
 		}
-
 		callback(null, JSON.parse(data));
 	});
 }
@@ -20,17 +18,18 @@ function saveTodos(todos, callback) {
 
 function noop() {}
 
-// Add todo
 function addTodo(todo, callback = noop) {
-	getAllTodos((err, todos) => {
+	getTodos((err, todos) => {
 		if (err) {
 			callback(err);
 			return;
 		}
-		const newTodo = { ...todo };
-		newTodo.id = todos[todos.length - 1].id + 1;
-		if (!newTodo.dateCreated) newTodo.dateCreated = new Date();
-
+		const newTodoId = todos[todos.length - 1].id + 1;
+		const newTodo = {
+			content : todo.content,
+			isDone  : todo.isDone || false,
+			id      : newTodoId
+		};
 		todos.push(newTodo);
 
 		saveTodos(todos, err => {
@@ -43,31 +42,28 @@ function addTodo(todo, callback = noop) {
 	});
 }
 
-// remove todo
-function removeTodo(id, callback = noop) {
-	getAllTodos((err, todos) => {
+function removeTodo(todoId, callback = noop) {
+	getTodos((err, todos) => {
 		if (err) {
 			callback(err);
 			return;
 		}
+		const updatedTodos = todos.filter(todo => todo.id !== todoId);
 
-		const updatedTodos = todos.filter(todo => todo.id !== id);
 		saveTodos(updatedTodos, callback);
 	});
 }
 
-// edit todo
-function editTodo(id, todo, callback) {
-	getAllTodos((err, todos) => {
+function editTodo(todoId, todo, callback = noop) {
+	getTodos((err, todos) => {
 		if (err) {
 			callback(err);
 			return;
 		}
-
-		const todoToEdit = todos.find(todo => todo.id === id);
+		const todoToEdit = todos.find(todo => todo.id === todoId);
 
 		if (!todoToEdit) {
-			callback(new Error('There is no todo with ID: ' + id));
+			callback(new Error('there is no todo with ID: ' + todoId));
 			return;
 		}
 
@@ -83,37 +79,40 @@ function editTodo(id, todo, callback) {
 	});
 }
 
-function toggleIsDone(id, isDone, callback) {
-	editTodo(id, { isDone }, callback);
+function toggleTodoDone(todoId, isDone, callback) {
+	editTodo(todoId, { isDone }, callback);
 }
-
-function showFilteredTodos(isDoneStatus) {
-	getAllTodos((err, todos) => {
-		if (err) {
-			throw err;
-		}
-
-		const newTodos = todos.filter(todo => {
-			if (todo.isDone === isDoneStatus) {
-				return todo;
-			}
-		});
-
-		return newTodos;
-	});
-}
-
-// addTodo({ content: 'to remove', isDone: true });
-// removeTodo(9);
-// editTodo(4, 'add ability to edit todo', true);
-// toggleIsDone(6);
-// showFilteredTodos(true);
 
 module.exports = {
-	getAllTodos,
+	getTodos,
 	addTodo,
 	removeTodo,
-	toggleIsDone,
-	showFilteredTodos,
-	editTodo
+	editTodo,
+	toggleTodoDone
 };
+
+//
+// addTodo({content: 'todo to remove', isDone: true})
+// removeTodo(9)
+
+//
+// console.log('start');
+// readFile(filePath, (err, data) => {
+// 	if (err) throw err;
+//
+// 	const content = data.toString();
+// 	const obj = JSON.parse(content);
+// 	obj.name = 'David';
+// 	obj.age = 31;
+//
+// 	console.log('data is ready to save..')
+//
+// 	writeFile(filePath, JSON.stringify(obj), 'utf8', (err) => {
+// 		if (err) {
+// 			throw err;
+// 		}
+// 		console.log('saved');
+// 	});
+// 	console.log('save is running ?')
+// });
+// console.log('The end of the code');

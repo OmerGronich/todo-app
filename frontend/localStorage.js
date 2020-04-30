@@ -1,5 +1,6 @@
 class Store {
 	static getTodos() {
+		fetchTodos();
 		let todos;
 		if (localStorage.getItem('todoList') === null) {
 			todos = [];
