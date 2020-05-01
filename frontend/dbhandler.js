@@ -4,9 +4,9 @@ class DB {
 		const todos = await response.json();
 		if (todos.length > 0) {
 			return todos;
-		} else {
-			return [];
 		}
+
+		return [];
 	}
 
 	static async addTodo(todo) {

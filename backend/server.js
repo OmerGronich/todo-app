@@ -1,7 +1,8 @@
 const express = require('express');
+const { getTodos, addTodo, removeTodo, editTodo } = require('./db');
+
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { getTodos, addTodo, removeTodo, editTodo } = require('./db');
 
 const app = express();
 

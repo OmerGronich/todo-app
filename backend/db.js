@@ -24,7 +24,7 @@ function addTodo(todo, callback = noop) {
 			callback(err);
 			return;
 		}
-		const newTodoId = todos[todos.length - 1].id + 1;
+		const newTodoId = todos.length > 0 ? todos[todos.length - 1].id + 1 : 1;
 		const newTodo = {
 			content     : todo.content,
 			isDone      : todo.isDone || false,

@@ -47,7 +47,7 @@ document.addEventListener('click', e => {
 	}
 });
 
-// Edit todo
+// Edit todo on dblclick
 document.querySelector('.list').addEventListener('dblclick', e => {
 	if (e.target.dataset.id) {
 		const li = e.target;
