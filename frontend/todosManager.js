@@ -1,54 +1,55 @@
 class TodosManager {
-	constructor() {
-		this.todos = Store.getTodos();
+	async setTodos() {
+		this.todos = await DB.fetchTodos();
 	}
 
 	addTodo(content) {
-		const todos = Store.getTodos();
+		if (!content) {
+			return;
+		}
+		const todos = todosManager.todos;
+		const todoId = todos.length > 0 ? todos[todos.length - 1].id + 1 : 1;
 		const todo = {
 			content,
 			dateCreated : new Date().toDateString(),
 			isDone      : false,
-			id          : todos.length > 0 ? todos[todos.length - 1].id + 1 : 1
+			id          : todoId
 		};
-		Store.addTodo(todo);
+		this.todos.push(todo);
+		DB.addTodo(todo);
 	}
 
 	editTodo(todoId, changedContent) {
-		let todos = Store.getTodos();
-		todos.forEach(todo => {
-			if (todo.id === todoId) {
-				todo.content = changedContent;
-			}
-		});
-		Store.saveTodos(todos);
+		const editedTodo = todosManager.todos.find(todo => todo.id === todoId);
+		editedTodo.content = changedContent;
+		DB.editTodo(todoId, editedTodo);
 	}
 
 	removeTodo(todoId) {
-		let todos = Store.getTodos();
-		todos = todos.filter(todo => todo.id !== todoId);
-		Store.saveTodos(todos);
+		this.todos = this.todos.filter(todo => todo.id !== todoId);
+		DB.removeTodo(todoId);
 	}
 	toggleIsDone(todoId) {
-		const todos = Store.getTodos();
+		const editedTodo = todosManager.todos.find(todo => todo.id === todoId);
+		editedTodo.isDone = !editedTodo.isDone;
 
-		todos.forEach(todo => {
-			if (todo.id === todoId) {
-				todo.isDone = !todo.isDone;
-			}
-		});
-		Store.saveTodos(todos);
+		DB.editTodo(todoId, editedTodo);
 	}
+
 	toggleAll() {
-		const todos = Store.getTodos();
+		const todos = todosManager.todos;
 		const totalTodos = todos.length;
 		const completedTodos = todos.filter(todo => todo.isDone).length;
 		if (completedTodos === totalTodos) {
-			todos.forEach(todo => (todo.isDone = false));
+			todos.forEach(todo => {
+				todo.isDone = false;
+				// await DB.editTodo(todo.id, todo);
+			});
 		} else {
-			todos.forEach(todo => (todo.isDone = true));
+			todos.forEach(todo => {
+				todo.isDone = true;
+				// await DB.editTodo(todo.id, todo);
+			});
 		}
-
-		Store.saveTodos(todos);
 	}
 }

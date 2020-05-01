@@ -26,9 +26,10 @@ function addTodo(todo, callback = noop) {
 		}
 		const newTodoId = todos[todos.length - 1].id + 1;
 		const newTodo = {
-			content : todo.content,
-			isDone  : todo.isDone || false,
-			id      : newTodoId
+			content     : todo.content,
+			isDone      : todo.isDone || false,
+			id          : newTodoId,
+			dateCreated : todo.dateCreated
 		};
 		todos.push(newTodo);
 
@@ -49,7 +50,6 @@ function removeTodo(todoId, callback = noop) {
 			return;
 		}
 		const updatedTodos = todos.filter(todo => todo.id !== todoId);
-
 		saveTodos(updatedTodos, callback);
 	});
 }

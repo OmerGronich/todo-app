@@ -7,7 +7,10 @@ const todosManager = new TodosManager();
 // Event Listeners
 
 // Initializing app
-document.addEventListener('DOMContentLoaded', UI.renderTodoList);
+document.addEventListener('DOMContentLoaded', async () => {
+	await todosManager.setTodos();
+	UI.renderTodoList();
+});
 
 // Submit todo event
 addTodoInput.addEventListener('keydown', e => {
@@ -48,7 +51,7 @@ document.addEventListener('click', e => {
 document.querySelector('.list').addEventListener('dblclick', e => {
 	if (e.target.dataset.id) {
 		const li = e.target;
-		const todos = Store.getTodos();
+		const todos = todosManager.todos;
 		todos.forEach(todo => {
 			if (todo.id === +e.target.dataset.id) {
 				// Is done icon

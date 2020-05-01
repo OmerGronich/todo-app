@@ -9,7 +9,7 @@ class UI {
 	static renderTodoList() {
 		UI.clearList();
 
-		const todos = Store.getTodos();
+		const todos = todosManager.todos;
 
 		if (todos.length > 0) {
 			todos.forEach(todo => {

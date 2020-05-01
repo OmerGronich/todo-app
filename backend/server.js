@@ -1,9 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const { getTodos, addTodo, removeTodo, editTodo } = require('./db');
 
 const app = express();
 
+app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/api/todos', function(req, res) {
