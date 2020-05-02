@@ -36,20 +36,16 @@ class TodosManager {
 		DB.editTodo(todoId, editedTodo);
 	}
 
-	toggleAll() {
+	async toggleAll() {
 		const todos = todosManager.todos;
 		const totalTodos = todos.length;
 		const completedTodos = todos.filter(todo => todo.isDone).length;
-		if (completedTodos === totalTodos) {
-			todos.forEach(todo => {
-				todo.isDone = false;
-				// await DB.editTodo(todo.id, todo);
-			});
-		} else {
-			todos.forEach(todo => {
-				todo.isDone = true;
-				// await DB.editTodo(todo.id, todo);
-			});
-		}
+		const shouldMarkAsDone = completedTodos === totalTodos;
+		const editTodosProcessArray = todos.map(todo => {
+			todo.isDone = shouldMarkAsDone;
+			return DB.editTodo(todo.id, todo);
+		});
+
+		await Promise.all(editTodosProcessArray);
 	}
 }

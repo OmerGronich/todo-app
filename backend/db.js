@@ -4,6 +4,10 @@ const filePath = './todos.json';
 
 function getTodos(callback) {
 	readFile(filePath, (err, data) => {
+		console.log('getting todos from file:');
+		console.log(data);
+		console.log('getting todos from file (json):');
+		console.log(JSON.parse(data));
 		if (err) {
 			callback(err);
 			return;
@@ -69,6 +73,7 @@ function editTodo(todoId, todo, callback = noop) {
 
 		Object.assign(todoToEdit, todo);
 
+		console.log(`saving file to db: ${JSON.stringify(todos)}`);
 		saveTodos(todos, err => {
 			if (err) {
 				callback(err);

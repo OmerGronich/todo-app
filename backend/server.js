@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const { getTodos, addTodo, removeTodo, editTodo } = require('./db');
 
 const cors = require('cors');
@@ -34,7 +35,7 @@ app.post('/api/todos', function(req, res) {
 				.end();
 			return;
 		}
-		res.status(200).json(newTodo).end();
+		res.status(200).json({ data: { newTodo } }).end();
 	});
 });
 
@@ -57,6 +58,7 @@ app.put('/api/todos/:todoId', function(req, res) {
 		return res.status(400).json({ message: 'content is missing' }).end();
 	}
 	const todoId = Number(req.params.todoId);
+	console.log(`editing todo: #${todoId}. with: ${JSON.stringify(req.body)}`);
 	editTodo(todoId, req.body, err => {
 		if (err) {
 			res
