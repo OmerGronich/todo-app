@@ -1,5 +1,4 @@
 const express = require('express');
-const path = require('path');
 const { getTodos, addTodo, removeTodo, editTodo } = require('./db');
 
 const cors = require('cors');

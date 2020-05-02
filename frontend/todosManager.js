@@ -40,12 +40,18 @@ class TodosManager {
 		const todos = todosManager.todos;
 		const totalTodos = todos.length;
 		const completedTodos = todos.filter(todo => todo.isDone).length;
-		const shouldMarkAsDone = completedTodos === totalTodos;
 		const editTodosProcessArray = todos.map(todo => {
-			todo.isDone = shouldMarkAsDone;
+			if (completedTodos === totalTodos) {
+				todo.isDone = false;
+			} else {
+				todo.isDone = true;
+			}
+
 			return DB.editTodo(todo.id, todo);
 		});
 
 		await Promise.all(editTodosProcessArray);
+
+		console.log(eitTodosProcessArray);
 	}
 }

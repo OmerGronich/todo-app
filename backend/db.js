@@ -95,29 +95,3 @@ module.exports = {
 	editTodo,
 	toggleTodoDone
 };
-
-//
-// addTodo({content: 'todo to remove', isDone: true})
-// removeTodo(9)
-
-//
-// console.log('start');
-// readFile(filePath, (err, data) => {
-// 	if (err) throw err;
-//
-// 	const content = data.toString();
-// 	const obj = JSON.parse(content);
-// 	obj.name = 'David';
-// 	obj.age = 31;
-//
-// 	console.log('data is ready to save..')
-//
-// 	writeFile(filePath, JSON.stringify(obj), 'utf8', (err) => {
-// 		if (err) {
-// 			throw err;
-// 		}
-// 		console.log('saved');
-// 	});
-// 	console.log('save is running ?')
-// });
-// console.log('The end of the code');
