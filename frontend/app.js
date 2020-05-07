@@ -13,9 +13,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 // Submit todo event
-addTodoInput.addEventListener('keydown', e => {
+addTodoInput.addEventListener('keydown', async e => {
 	if (e.keyCode === 13) {
-		todosManager.addTodo(e.target.value);
+		await todosManager.addTodo(e.target.value);
 		e.target.value = '';
 		UI.renderTodoList();
 	}
@@ -24,7 +24,7 @@ addTodoInput.addEventListener('keydown', e => {
 // Remove todo event
 document.addEventListener('click', e => {
 	if (e.target.id === 'remove-todo') {
-		const todoId = +e.target.parentElement.dataset.id;
+		const todoId = e.target.parentElement.dataset.id;
 		todosManager.removeTodo(todoId);
 		UI.renderTodoList();
 	}
@@ -33,16 +33,16 @@ document.addEventListener('click', e => {
 // Toggle done status
 document.addEventListener('click', e => {
 	if (e.target.id === 'completed' || e.target.id === 'not-completed') {
-		const todoId = +e.target.parentElement.dataset.id;
+		const todoId = e.target.parentElement.dataset.id;
 		todosManager.toggleIsDone(todoId);
 		UI.renderTodoList();
 	}
 });
 
 // Toggle All
-document.addEventListener('click', e => {
+document.addEventListener('click', async e => {
 	if (e.target.id === 'toggle-all') {
-		todosManager.toggleAll();
+		await todosManager.toggleAll();
 		UI.renderTodoList();
 	}
 });
@@ -53,7 +53,7 @@ document.querySelector('.list').addEventListener('dblclick', e => {
 		const li = e.target;
 		const todos = todosManager.todos;
 		todos.forEach(todo => {
-			if (todo.id === +e.target.dataset.id) {
+			if (todo._id === e.target.dataset.id) {
 				// Is done icon
 				let isDoneIcon = todo.isDone
 					? '<i id="completed" class="far fa-check-circle"></i>'
@@ -69,7 +69,7 @@ document.querySelector('.list').addEventListener('dblclick', e => {
 					if (e.keyCode === 13) {
 						li.innerHTML = `${isDoneIcon} ${e.target
 							.value} | <em>${todo.dateCreated}</em> <i id="remove-todo" class="fas fa-times">`;
-						todosManager.editTodo(todo.id, e.target.value);
+						todosManager.editTodo(todo._id, e.target.value);
 						input.blur();
 					}
 				});
@@ -78,7 +78,7 @@ document.querySelector('.list').addEventListener('dblclick', e => {
 				input.addEventListener('blur', e => {
 					li.innerHTML = `${isDoneIcon} ${e.target
 						.value} | <em>${todo.dateCreated}</em> <i id="remove-todo" class="fas fa-times">`;
-					todosManager.editTodo(todo.id, e.target.value);
+					todosManager.editTodo(todo._id, e.target.value);
 				});
 			}
 		});

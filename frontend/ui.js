@@ -6,7 +6,7 @@ class UI {
 		list.innerHTML = '';
 	}
 
-	static renderTodoList() {
+	static async renderTodoList() {
 		UI.clearList();
 
 		const todos = todosManager.todos;
@@ -14,7 +14,7 @@ class UI {
 		if (todos.length > 0) {
 			todos.forEach(todo => {
 				const todoLiElement = document.createElement('li');
-				todoLiElement.dataset.id = todo.id;
+				todoLiElement.dataset.id = todo._id;
 				let isDoneIcon = todo.isDone
 					? '<i id="completed" class="far fa-check-circle"></i>'
 					: '<i id="not-completed" class="far fa-circle"></i>';

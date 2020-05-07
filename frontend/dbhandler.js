@@ -11,7 +11,7 @@ class DB {
 
 	static async addTodo(todo) {
 		try {
-			const response = await fetch('http://localhost:3000/api/todos', {
+			const response = await fetch('http://localhost:3000/api/todo', {
 				method  : 'POST',
 				headers : {
 					'Content-Type' : 'application/json'
@@ -28,12 +28,31 @@ class DB {
 	static async removeTodo(todoId) {
 		try {
 			const response = await fetch(
-				`http://localhost:3000/api/todos/${todoId}`,
+				`http://localhost:3000/api/todo/${todoId}`,
 				{
 					method  : 'DELETE',
 					headers : {
 						'Content-Type' : 'application/json'
 					}
+				}
+			);
+			const data = await response.json();
+			return console.log('Success!', data);
+		} catch (error) {
+			console.log('Error', error);
+		}
+	}
+
+	static async editTodo(todoId, editedTodo) {
+		try {
+			const response = await fetch(
+				`http://localhost:3000/api/todo/${todoId}`,
+				{
+					method  : 'PUT',
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					body    : JSON.stringify(editedTodo)
 				}
 			);
 			const data = await response.json();
@@ -43,18 +62,15 @@ class DB {
 		}
 	}
 
-	static async editTodo(todoId, editedTodo) {
+	static async replaceTodos(todos) {
 		try {
-			const response = await fetch(
-				`http://localhost:3000/api/todos/${todoId}`,
-				{
-					method  : 'PUT',
-					headers : {
-						'Content-Type' : 'application/json'
-					},
-					body    : JSON.stringify(editedTodo)
-				}
-			);
+			const response = await fetch('http://localhost:3000/api/todos', {
+				method  : 'PUT',
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				body    : JSON.stringify(todos)
+			});
 			const data = await response.json();
 			console.log('Success!', data);
 		} catch (error) {

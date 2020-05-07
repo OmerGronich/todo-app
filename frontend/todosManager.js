@@ -3,55 +3,39 @@ class TodosManager {
 		this.todos = await DB.fetchTodos();
 	}
 
-	addTodo(content) {
+	async addTodo(content) {
 		if (!content) {
 			return;
 		}
-		const todos = todosManager.todos;
-		const todoId = todos.length > 0 ? todos[todos.length - 1].id + 1 : 1;
 		const todo = {
 			content,
 			dateCreated : new Date().toDateString(),
-			isDone      : false,
-			id          : todoId
+			isDone      : false
 		};
-		this.todos.push(todo);
-		DB.addTodo(todo);
+		await DB.addTodo(todo);
+		await this.setTodos();
 	}
 
-	editTodo(todoId, changedContent) {
-		const editedTodo = todosManager.todos.find(todo => todo.id === todoId);
+	async editTodo(todoId, changedContent) {
+		const editedTodo = this.todos.find(todo => todo._id === todoId);
 		editedTodo.content = changedContent;
-		DB.editTodo(todoId, editedTodo);
+		await DB.editTodo(todoId, editedTodo);
 	}
 
-	removeTodo(todoId) {
-		this.todos = this.todos.filter(todo => todo.id !== todoId);
-		DB.removeTodo(todoId);
+	async removeTodo(todoId) {
+		this.todos = this.todos.filter(todo => todo._id !== todoId);
+		await DB.removeTodo(todoId);
 	}
-	toggleIsDone(todoId) {
-		const editedTodo = todosManager.todos.find(todo => todo.id === todoId);
+
+	async toggleIsDone(todoId) {
+		const editedTodo = this.todos.find(todo => todo._id === todoId);
 		editedTodo.isDone = !editedTodo.isDone;
-
-		DB.editTodo(todoId, editedTodo);
+		await DB.editTodo(todoId, editedTodo);
 	}
 
 	async toggleAll() {
-		const todos = todosManager.todos;
-		const totalTodos = todos.length;
-		const completedTodos = todos.filter(todo => todo.isDone).length;
-		const editTodosProcessArray = todos.map(todo => {
-			if (completedTodos === totalTodos) {
-				todo.isDone = false;
-			} else {
-				todo.isDone = true;
-			}
-
-			return DB.editTodo(todo.id, todo);
-		});
-
-		await Promise.all(editTodosProcessArray);
-
-		console.log(eitTodosProcessArray);
+		const todos = this.todos;
+		await DB.replaceTodos(todos);
+		await this.setTodos();
 	}
 }
