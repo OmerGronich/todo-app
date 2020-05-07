@@ -45,7 +45,6 @@ module.exports = {
 	connect
 };
 
-// ------- Create
 // db
 // .collection('todos')
 // .insertOne({

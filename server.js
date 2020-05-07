@@ -8,6 +8,7 @@ const mongodb = require('./mongodb');
 let db;
 
 const app = express();
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(cors());
@@ -92,9 +93,9 @@ mongodb.connect(err => {
 		console.error('Unable to connect to database');
 		process.exit(1);
 	} else {
-		app.listen(3000, async () => {
+		app.listen(port, async () => {
 			db = await mongodb.getDB();
-			console.log('connected to database, app litening on port 3000');
+			console.log('connected to database, app litening on port ' + port);
 		});
 	}
 });
