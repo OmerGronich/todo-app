@@ -3,15 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Todo List</title>
   <script src="https://kit.fontawesome.com/88ab1ebf3e.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="/dist/css/main.css">
+  <title>Todo List</title>
 </head>
 <body>
-  <h1>Todo List</h1>
+  <h1 class="heading-primary">todo list</h1>
   <div class="container">
-    <i id="toggle-all" class="fas fa-chevron-circle-down"></i>
-    <label for="add-todo">
-      </i><input type="text" placeholder="Add a task" id="add-todo">
+    <label class="add-todo" for="add-todo">
+    <i id="toggle-all" class="fas fa-chevron-circle-down btn btn--toggle-all"></i>
+    <input class="add-todo__input" type="text" placeholder="Add a task..." id="add-todo">
     </label>
     <ul class="list"></ul>
   </div>
