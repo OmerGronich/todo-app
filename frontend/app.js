@@ -67,11 +67,6 @@ document.querySelector('.list').addEventListener('dblclick', e => {
 						<input class="list-item__input" type="text" value="${todo.content}">
 					</div>`;
 
-				// <div class="list-item__left">
-				// 			${isDoneIcon}
-				// 			<div class="list-item__content">${e.target.value}</div>
-				// 		</div>
-
 				const input = li.querySelector('input');
 				input.focus();
 
