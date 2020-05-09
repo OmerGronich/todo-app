@@ -1,5 +1,6 @@
 const list = document.querySelector('.list');
 const toggleAllBtn = document.querySelector('#toggle-all');
+const toolTip = document.querySelector('.tooltip');
 
 class UI {
 	static clearList() {
@@ -44,9 +45,11 @@ class UI {
 
 				list.append(todoLiElement);
 				toggleAllBtn.style.display = 'inline-block';
+				toolTip.style.display = 'block';
 			});
 		} else {
 			toggleAllBtn.style.display = 'none';
+			toolTip.style.display = 'none';
 		}
 
 		UI.checkIfDone();
