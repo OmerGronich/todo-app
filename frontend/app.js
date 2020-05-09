@@ -80,6 +80,7 @@ document.querySelector('.list').addEventListener('dblclick', e => {
 						li.classList.remove('box-shadow-inset');
 						todosManager.editTodo(todo._id, e.target.value);
 						input.blur();
+						UI.renderTodoList();
 					}
 				});
 
@@ -97,13 +98,10 @@ document.querySelector('.list').addEventListener('dblclick', e => {
 					li.classList.remove('box-shadow-inset');
 
 					todosManager.editTodo(todo._id, e.target.value);
+
+					UI.renderTodoList();
 				});
 			}
 		});
 	}
-});
-
-// Add strikethrough to li content when todos are done
-list.addEventListener('change', () => {
-	UI.checkIfDone();
 });
