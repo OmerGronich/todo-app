@@ -49,7 +49,10 @@ document.addEventListener('click', async e => {
 
 // Edit todo on dblclick
 document.querySelector('.list').addEventListener('dblclick', e => {
-	if (e.target.classList.contains('list-item__content')) {
+	if (
+		e.target.classList.contains('list-item__content') ||
+		e.target.classList.contains('list-item__date')
+	) {
 		const li = e.target.parentElement.parentElement;
 		li.classList.add('box-shadow-inset');
 		const todos = todosManager.todos;
