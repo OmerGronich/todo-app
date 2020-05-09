@@ -21,7 +21,6 @@ class UI {
 
 	static async renderTodoList() {
 		UI.clearList();
-
 		const todos = todosManager.todos;
 
 		if (todos.length > 0) {
@@ -45,11 +44,11 @@ class UI {
 
 				list.append(todoLiElement);
 				toggleAllBtn.style.display = 'inline-block';
-				toolTip.style.display = 'block';
+				toolTip.classList.remove('hidden');
 			});
 		} else {
 			toggleAllBtn.style.display = 'none';
-			toolTip.style.display = 'none';
+			toolTip.classList.add('hidden');
 		}
 
 		UI.checkIfDone();
