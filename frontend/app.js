@@ -1,6 +1,3 @@
-// DOM SELECTION
-const addTodoInput = document.querySelector('#add-todo');
-
 // Init new Todos Manager
 const todosManager = new TodosManager();
 

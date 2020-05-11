@@ -3,99 +3,24 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors');
 
-const mongodb = require('./mongodb');
+const { port } = require('./config');
+const connect = require('./db');
 
-let db;
+const userRouter = require('./routers/user');
+const todoRouter = require('./routers/todo');
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.use(cors());
+app.use(userRouter);
+app.use(todoRouter);
 
 app.use(express.static(path.join(__dirname, '/frontend')));
 
-// CREATE
-app.post('/api/todo', async (req, res) => {
-	try {
-		const result = await db.collection('todos').insertOne(req.body);
-		res.json(result.ops);
-	} catch (e) {
-		console.error(e);
-	}
-});
-
-// READ
-app.get('/api/todos', async (req, res) => {
-	try {
-		const result = await db.collection('todos').find({}).toArray();
-		res.json(result);
-	} catch (e) {
-		console.error(e);
-	}
-});
-
-// UPDATE ALL TODOS (FOR TOGGLE ALL)
-app.put('/api/todos', async (req, res) => {
-	try {
-		const todos = req.body;
-		const totalTodos = todos.length;
-		const completedTodos = todos.filter(todo => todo.isDone).length;
-		if (completedTodos === totalTodos) {
-			await db
-				.collection('todos')
-				.updateMany({}, { $set: { isDone: false } });
-		} else {
-			await db
-				.collection('todos')
-				.updateMany({}, { $set: { isDone: true } });
-		}
-		res.json(todos);
-	} catch (e) {
-		console.log(e);
-	}
-});
-
-// UPDATE SINGLE TODO
-app.put('/api/todo/:id', async (req, res) => {
-	const { content, isDone } = req.body;
-	const _id = await mongodb.getID(req.params.id);
-
-	try {
-		const result = await db.collection('todos').updateOne(
-			{ _id },
-			{
-				$set : {
-					content,
-					isDone
-				}
-			}
-		);
-		res.json(result.modifiedCount + ' todos successfully modified');
-	} catch (e) {
-		console.error(e);
-	}
-});
-
-// DELETE
-app.delete('/api/todo/:id', async (req, res) => {
-	const _id = mongodb.getID(req.params.id);
-	try {
-		const result = await db.collection('todos').deleteOne({ _id });
-		res.json(result.deletedCount + ' todos successfully deleted');
-	} catch (e) {
-		console.error(e);
-	}
-});
-
-mongodb.connect(err => {
-	if (err) {
-		console.error('Unable to connect to database');
-		process.exit(1);
-	} else {
-		app.listen(port, async () => {
-			db = await mongodb.getDB();
-			console.log('connected to database, app litening on port ' + port);
-		});
-	}
+connect().then(() => {
+	console.log('DB is connected');
+	app.listen(port, () => {
+		console.log('Server is up with express on port: ', port);
+	});
 });

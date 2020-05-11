@@ -1,3 +1,5 @@
+// DOM SELECTION
+const addTodoInput = document.querySelector('#add-todo');
 const list = document.querySelector('.list');
 const toggleAllBtn = document.querySelector('#toggle-all');
 const toolTip = document.querySelector('.tooltip');
